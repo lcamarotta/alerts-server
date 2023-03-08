@@ -12,6 +12,10 @@ io.on('connection', socket => {
   console.log('New client')
 });
 
-app.get('/', (req, res) => {  
+app.get('/', (req, res) => {
+  io.emit('alert', 'Alert received');
+})
+
+app.get('/client', (req, res) => {  
   res.status(200).sendFile(__path('src/public/index.html'))
 })
