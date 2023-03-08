@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "nodemon src/app.js",
     "start": "node src/app.js"
@@ -12,6 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "play-sound": "^1.1.5"
+    "socket.io": "^4.6.1"
   }
 }

@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="icon" href="./assets/images/favicon.ico" />
+  <link rel="stylesheet" href="./styles/styles.css"/>
+  <title>Test API</title>
 </head>
 <body>
-  <h1>HOLA GERA</h1>
-  <button id="button">BOTONCITO</button>
-  <audio controls="" style="width:100%; height:10;" src="./warning.wav" id="my-player"></audio>
-  <script>
-    const myPlayer = document.getElementById('my-player')
-    const button = document.getElementById('button')
-    button.onclick()
-  </script>
+  <main>
+    <div>
+      <h1>Test Page</h1>
+    </div>
+    <div>
+      <button id="testButton">BUTTON</button>
+    </div>
+    <div>
+      <audio controls="" src="./assets/audio/warning.wav" id="soundPlayer"></audio>
+    </div>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/script.js"></script>
 </body>
 </html>

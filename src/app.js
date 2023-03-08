@@ -1,23 +1,17 @@
-const express = require("express")
+import express from 'express';
+import { Server } from 'socket.io';
+import { __path } from './utils.js';
+
 const app = express();
+app.use(express.static(__path('src/public/')));
 
-app.listen(8080, () => console.log('Server listening on port 8080'));
+const httpServer = app.listen(80, () => console.log('Server listening on port 80'));
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(express.static("./public"));
+const io = new Server(httpServer)
+io.on('connection', socket => {
+  console.log('New client')
+});
 
-
-app.get('/', (req, res) => {
-  // const player = require('play-sound')(opts = {})
-  // try {
-  //   player.play('./assets/homer.wav', function(err){
-  //     if(err) throw new Error(err)
-  //   })
-  // } catch (err) {
-  //   console.error("ERROR", err)
-  // }
-  // res.status(200).send("Test Sound")
-  
-  res.status(200).send('./index.html')
+app.get('/', (req, res) => {  
+  res.status(200).sendFile(__path('src/public/index.html'))
 })
