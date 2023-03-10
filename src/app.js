@@ -9,7 +9,6 @@ const httpServer = app.listen(8080, () => console.log('Server listening on port 
 const io = new Server(httpServer)
 
 let countClients = 0;
-let countAlerts = 0;
 io.on('connection', socket => {
   countClients ++
   const address = socket.handshake.address;
@@ -22,14 +21,12 @@ io.on('connection', socket => {
   })
 });
 
-
 app.get('/', (req, res) => {  
   res.status(200).sendFile(__path('src/public/index.html'))
 })
 
 app.get('/api/alert', (req, res) => {
-  countAlerts ++
-  console.log(countAlerts, 'Alerts since last boot ');
-  io.emit('alert', `Alert ${countAlerts} received`);
+  console.log('Alert received');
+  io.emit('alert', `Alert received`);
   res.status(200).send({status: 'success'})
 })
