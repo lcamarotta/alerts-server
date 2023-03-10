@@ -5,7 +5,7 @@ import { __path } from './utils.js';
 const app = express();
 app.use(express.static(__path('src/public/')));
 
-const httpServer = app.listen(80, () => console.log('Server listening on port 80'));
+const httpServer = app.listen(8080, () => console.log('Server listening on port 8080'));
 const io = new Server(httpServer)
 
 let countClients = 0;
