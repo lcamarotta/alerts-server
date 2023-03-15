@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="./assets/alarm.png" />
-  <title>Alerts Server</title>
+  <title>NeuralWeb Alert</title>
 
   <style>
-    main{
-      margin: 5px; padding: 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+    body{ margin: 0; padding: 0;  }
+    iframe{ width: 100%; height: 100vh;  }
     audio{  display: none;  }
-    button{ padding: 10px; }
   </style>
-  
 </head>
 
 <body>
 
   <main>
-    <h1>Example HTML</h1>
-    <p>You will hear an alarm when http requests are sent to <b>http://'server-ip'/api/alerts</b></p>
-    <p>You should click the button first to avoid audio playback being blocked by browser security policies</p>
-    <button>Click Me</button>
-    <div id="text-box"></div>
-
+    <iframe src="http://neuralweb.net/"></iframe>
     <audio src="./assets/audio/short_warning.wav" id="soundPlayer"></audio>
   </main>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    const textBox = document.getElementById("text-box");
     const socket = io();
     socket.on('alert', (msg) => {
-      textBox.innerHTML += `<p>${msg}<p>`
+      console.log(msg)
       soundPlayer.play();
     })
   </script>
