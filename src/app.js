@@ -1,5 +1,5 @@
 const path = require('path');
-const absolutePath = path.resolve(path.dirname(''));
+const absolutePath = path.resolve(path.dirname('') + '/alerts-server');
 
 const express = require('express');
 const app = express();
@@ -8,7 +8,7 @@ const io = require('socket.io')(httpServer);
 
 app.use(express.static(`${absolutePath}/src/public`));
 
-httpServer.listen(80, () => console.log(`Server listening on port ${80}`));
+httpServer.listen(80, () => console.log(`Server listening on port 80`));
 
 let countClients = 0;
 io.on('connection', socket => {
