@@ -1,6 +1,6 @@
 const path = require('path');
 const absolutePath = path.resolve(path.dirname('') + '/alerts-server');
-
+//Above path works on linux for non-root users. **/home/user**
 const express = require('express');
 const app = express();
 const httpServer = require('http').createServer(app);
@@ -25,6 +25,10 @@ io.on('connection', socket => {
 
 app.get('/', (req, res) => {  
   res.status(200).sendFile(`${absolutePath}/src/public/index.html`);
+});
+
+app.get('/test', (req, res) => {  
+  res.status(200).sendFile(`${absolutePath}/src/public/test.html`);
 });
 
 app.get('/api/alert', (req, res) => {

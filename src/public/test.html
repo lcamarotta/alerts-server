@@ -1,0 +1,64 @@
+<!-- BE ADVISED THIS IS NOT SECURE - USER/PASS IS IN PLAIN TEXT ON FRONTEND -->
+<!-- FEATS: AUTO REFRESH EVERY 15 MIN - AUTOLOGIN - GOTO ALARMS PAGE -->
+<!-- FOR THIS TO WORK CREATE A SHORTCUT TO GOOGLE CHROME AS FOLLOWS -->
+<!-- "%programfiles%\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=%LOCALAPPDATA%\Google\chromeTemp -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="refresh" content="900">
+	<link rel="icon" href="./assets/alarm.png" />
+	<title>NeuralWeb Alert</title>
+
+	<style>
+		body{ margin: 0; padding: 0;  }
+		iframe{ width: 100%; height: 100vh;  }
+		audio{  display: none;  }
+	</style>
+</head>
+
+<body>
+	<main>
+		<iframe id="iframe" src="" data-src="http://neuralweb.net/alarms"></iframe>
+		<audio src="./assets/audio/short_warning.wav" id="soundPlayer"></audio>
+	</main>
+
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		const socket = io();
+		socket.on('alert', (msg) => {
+			console.log(msg)
+			soundPlayer.play();
+		})
+		
+		const sendLogin = async() => {
+			await fetch("http://10.1.1.7:5000/api/v1/Users/authenticate", {
+				"credentials": "include",
+					"headers": {
+					"Accept": "application/json, text/plain, */*",
+					"Accept-Language": "en-US,en;q=0.5",
+					"Authorization": "Bearer null",
+					"Content-Type": "application/json"
+				},
+				"referrer": "http://neuralweb.net/",
+				"body": "{\"username\":\"monitoreo\",\"password\":\"monitoreo2022\"}",
+				"method": "POST",
+				"mode": "cors"
+				});
+			}
+
+		const load_iframe = () => {
+			let iframe = document.getElementById('iframe');
+			iframe.getAttribute('data-src');
+			iframe.setAttribute('src',iframe.getAttribute('data-src'));
+		}
+		document.addEventListener("DOMContentLoaded", async function(event) {
+			await sendLogin();	
+			load_iframe();
+		});
+	</script>
+
+</body>
+</html>
