@@ -1,16 +1,14 @@
-import express from 'express';
-import { Server } from 'socket.io';
-import { fileURLToPath } from "url";
-import path, { dirname } from "path";
+const path = require('path');
+const absolutePath = path.resolve(path.dirname(''));
 
-const srcDir = dirname(fileURLToPath(import.meta.url))
-
+const express = require('express');
 const app = express();
-app.use(express.static(path.join(srcDir, 'public/')));
+const httpServer = require('http').createServer(app);
+const io = require('socket.io')(httpServer);
 
-const port = 80
-const httpServer = app.listen(port, () => console.log(`Server listening on port ${port}`));
-const io = new Server(httpServer)
+app.use(express.static(`${absolutePath}/src/public`));
+
+httpServer.listen(80, () => console.log(`Server listening on port ${80}`));
 
 let countClients = 0;
 io.on('connection', socket => {
@@ -26,7 +24,7 @@ io.on('connection', socket => {
 });
 
 app.get('/', (req, res) => {  
-  res.status(200).sendFile(path.join(srcDir, 'public/index.html'))
+  res.status(200).sendFile(`${absolutePath}/src/public/index.html`);
 });
 
 app.get('/api/alert', (req, res) => {
